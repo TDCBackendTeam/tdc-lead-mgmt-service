@@ -191,4 +191,39 @@ public class LeadGenerateServiceImpl implements LeadGenerateService {
 
 	}
 
+	@Transactional
+	@Override
+	public void deleteByEmail(String email) {
+		log.info("before enter into the service class");
+		Student student = studentRepository.findByEmailId(email);
+		if (student != null) {
+			LeadGenerate leadGenerate = leadGenerateRepository.findByStudent(student);
+			int leadId = leadGenerate.getLeadId();
+			int studentId = leadGenerate.getStudent().getStudentId();
+			int source_Id = leadGenerate.getSource().getSourceId();
+			int stage_Id = leadGenerate.getStage().getStageId();
+			int course_Id = student.getCourse().getStuTypeId();
+			int address_Id = student.getAddress().getAddId();
+			try {
+				leadGenerateRepository.deleteById(leadId);
+				studentRepository.deleteById(studentId);
+				addressRepository.deleteById(address_Id);
+				sourceRepository.deleteById(source_Id);
+				stageRepository.deleteById(stage_Id);
+				courseRepository.deleteById(course_Id);
+			} catch (Exception e) {
+				log.info("Something wrong");
+			}
+		}
+
+	}
+
+	@Override
+	public void deleteFollowUpId(List<Integer> followUpIds) {
+		for (int followUpId : followUpIds) {
+			folUpRepository.deleteById(followUpId);
+		}
+
+	}
+
 }

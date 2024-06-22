@@ -7,5 +7,7 @@ import com.tdc.app.platform.entities.Student;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer> {
+	
+	 Student findByEmailId(String email);
 
 }

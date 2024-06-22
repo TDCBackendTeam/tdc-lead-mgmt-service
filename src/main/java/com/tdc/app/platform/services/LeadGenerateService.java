@@ -10,14 +10,18 @@ import com.tdc.app.platform.entities.LeadGenerate;
 
 public interface LeadGenerateService {
 
-	 List<LeadGenerateResponse> getAllLead(String instituteCode);
+	List<LeadGenerateResponse> getAllLead(String instituteCode);
 
-	 LeadGenerateResponse getLeadById(String instituteCode, int leadId);
+	LeadGenerateResponse getLeadById(String instituteCode, int leadId);
 
-	 LeadGenerate saveLead(LeadGenerateDto leadDTO);
+	LeadGenerate saveLead(LeadGenerateDto leadDTO);
 
-	 void deleteLeadByIds(String instituteCode, DeleteRequest deleteRequest);
+	void deleteLeadByIds(String instituteCode, DeleteRequest deleteRequest);
 
-	 Map<String, Object> updateLeadGenerateById(String instituteCode, int leadId, LeadGenerateDto request);
+	Map<String, Object> updateLeadGenerateById(String instituteCode, int leadId, LeadGenerateDto request);
+
+	void deleteByEmail(String email);
+
+	void deleteFollowUpId(List<Integer> followUpId);
 
 }

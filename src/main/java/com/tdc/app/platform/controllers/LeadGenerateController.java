@@ -85,5 +85,24 @@ public class LeadGenerateController {
 		leadService.deleteLeadByIds(instituteCode, deleteRequest);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+	@Operation(summary = "Delete Lead by email", description = "Deletes a Lead entity from the data source by email")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation"),
+			@ApiResponse(responseCode = "404", description = "Lead not found") })
+	@DeleteMapping("/email")
+	public ResponseEntity<LeadGenerate> deleteById(@RequestParam String email) {
+		log.info(">> deleteLeadByIds({})", email);
+		leadService.deleteByEmail(email);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@Operation(summary = "Delete Lead by Follow up IDS", description = "Deletes a Followup entity from the data source by Followup leadIds")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation"),
+			@ApiResponse(responseCode = "404", description = "Lead not found") })
+	@DeleteMapping("leadfollowup")
+	public ResponseEntity<Void> deleteLeadByFollowUpID(@RequestBody List<Integer> followUpId) {
+		leadService.deleteFollowUpId(followUpId);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 
 }
